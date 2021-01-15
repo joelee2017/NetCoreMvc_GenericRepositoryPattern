@@ -1,0 +1,2 @@
+# NetCoreMvc_GenericRepositoryPattern
+GenericRepositoryPattern
