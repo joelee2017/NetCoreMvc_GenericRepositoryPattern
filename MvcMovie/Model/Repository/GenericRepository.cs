@@ -1,7 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Model.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace Model.Repository
 {
@@ -19,6 +21,12 @@ namespace Model.Repository
         {
             return table.AsEnumerable();
         }
+
+        public IQueryable<T> Query(Expression<Func<T, bool>> predicate)
+        {
+            return table.Where(predicate);
+        }
+
         public T GetById(object id)
         {
             return table.Find(id);
