@@ -1,2 +1,4 @@
 # NetCoreMvc_GenericRepositoryPattern
 GenericRepositoryPattern
+
+一、IGenericRepository 、GenericRepository 建立

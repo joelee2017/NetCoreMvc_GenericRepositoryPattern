@@ -80,7 +80,7 @@ namespace MvcMovie.Controllers
                 return NotFound();
             }
 
-            var movie = _moviesService.Find(m => m.Id == id.Value);
+            var movie = _moviesService.Find(id.Value);
             if (movie == null)
             {
                 return NotFound();
@@ -130,7 +130,7 @@ namespace MvcMovie.Controllers
                 return NotFound();
             }
 
-            var movie = _moviesService.Find(m => m.Id == id);
+            var movie = _moviesService.Find(id);
             if (movie == null)
             {
                 return NotFound();

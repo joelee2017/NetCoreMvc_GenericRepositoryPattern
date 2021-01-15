@@ -1,27 +1,26 @@
 ﻿using Model.Mapper;
 using Model.Models;
-using System;
+using Model.Repository;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 
 namespace Service.Service
 {
     public class MoviesService : IMoviesService
     {
-        private readonly IRepository<Movie> _movieRepository;
+        private readonly IGenericRepository<Movie> _movieRepository;
 
-        public MoviesService(IRepository<Movie> movieRepository)
+        public MoviesService(IGenericRepository<Movie> movieRepository)
         {
             _movieRepository = movieRepository;
         }
         public IEnumerable<MovieViewModel> GetAll() => _movieRepository.GetAll().Map<Movie, MovieViewModel>(true);
 
-        public MovieViewModel Add(Movie movie) => _movieRepository.Add(movie).Map<Movie, MovieViewModel>(true);
+        public void Add(Movie movie) => _movieRepository.Insert(movie);
 
-        public MovieViewModel Update(Movie movie) => _movieRepository.Update(movie).Map<Movie, MovieViewModel>(true);
+        public void Update(Movie movie) => _movieRepository.Update(movie);
 
-        public void Remove(int id) => _movieRepository.Remove(id);
+        public void Remove(int id) => _movieRepository.Delete(id);
 
         public IEnumerable<string> GenreQuery()
         {
@@ -53,6 +52,6 @@ namespace Service.Service
             return result;
         }
 
-        public MovieViewModel Find(Expression<Func<Movie, bool>> func) => _movieRepository.FirstOrDefault(func).Map<Movie, MovieViewModel>(true);
+        public MovieViewModel Find(object id) => _movieRepository.GetById(id).Map<Movie, MovieViewModel>(true);
     }
 }

@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Model.Data;
 using Model.Models;
+using Model.Repository;
 using Service.Service;
 
 namespace MvcMovie
@@ -29,7 +30,7 @@ namespace MvcMovie
             services.AddDbContext<MvcMovieContext>(options 
                 => options.UseSqlServer(Configuration.GetConnectionString("MvcMovieContext")));
 
-            services.AddScoped<IRepository<Movie>, MovieRepository>();
+            services.AddScoped<IGenericRepository<Movie>, GenericRepository<Movie>>();
             services.AddScoped<IMoviesService, MoviesService>();
 
         }

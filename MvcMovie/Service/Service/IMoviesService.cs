@@ -13,11 +13,11 @@ namespace Service.Service
 
         public IEnumerable<MovieViewModel> GetAll();
 
-        public MovieViewModel Find(Expression<Func<Movie, bool>> func);
+        public MovieViewModel Find(object id);
 
-        public MovieViewModel Add(Movie movie);
+        public void Add(Movie movie);
 
-        public MovieViewModel Update(Movie movie);
+        public void Update(Movie movie);
 
         public void Remove(int id);
     }
