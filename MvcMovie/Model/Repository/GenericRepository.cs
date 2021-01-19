@@ -7,42 +7,42 @@ using System.Linq.Expressions;
 
 namespace Model.Repository
 {
-    public class GenericRepository<T> : IGenericRepository<T> where T : class
+    public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class
     {
         private MvcMovieContext _context = null;
-        private DbSet<T> table = null;
+        private DbSet<TEntity> table = null;
 
         public GenericRepository(MvcMovieContext _context)
         {
             this._context = _context;
-            table = _context.Set<T>();
+            table = _context.Set<TEntity>();
         }
-        public IEnumerable<T> GetAll()
+        public IEnumerable<TEntity> GetAll()
         {
             return table.AsEnumerable();
         }
 
-        public IQueryable<T> Query(Expression<Func<T, bool>> predicate)
+        public IQueryable<TEntity> Query(Expression<Func<TEntity, bool>> predicate)
         {
             return table.Where(predicate);
         }
 
-        public T GetById(object id)
+        public TEntity GetById(object id)
         {
             return table.Find(id);
         }
-        public void Insert(T obj)
+        public void Insert(TEntity obj)
         {
             table.Add(obj);
         }
-        public void Update(T obj)
+        public void Update(TEntity obj)
         {
             table.Attach(obj);
             _context.Entry(obj).State = EntityState.Modified;
         }
         public void Delete(object id)
         {
-            T existing = table.Find(id);
+            TEntity existing = table.Find(id);
             table.Remove(existing);
         }
         public void Save()

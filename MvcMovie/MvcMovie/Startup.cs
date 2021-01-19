@@ -1,14 +1,10 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Model.Data;
-using Model.Models;
-using Model.Repository;
 using MvcMovie.Helper;
-using Service.Service;
+using System.Collections.Generic;
 
 namespace MvcMovie
 {
@@ -29,11 +25,22 @@ namespace MvcMovie
             // 注入 DB
             services.InJectionByDbContext(Configuration.GetConnectionString("MvcMovieContext"));
 
+            //第一種版本
             // 注入 Repository
-            services.InJectionByRepository();
+            // services.InJectionByGenericRepository();
 
             // 注入 Service
-            services.InJectionByService();
+            // services.InJectionByService("Service");
+
+            //第二種版本
+            // 注入 Interface
+            services.InJectionByInterface(new List<string>() { "Service", "Repository" });
+
+            // 注入 Class
+            services.InJectionByClass(new List<string>() { "Service", "Repository" });
+
+            // 注入 Generic
+            services.InJectionByGeneric("Model", new List<string>() { "Repository" });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

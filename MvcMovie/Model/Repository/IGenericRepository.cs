@@ -5,14 +5,14 @@ using System.Linq.Expressions;
 
 namespace Model.Repository
 {
-    public interface IGenericRepository<T> where T : class
+    public interface IGenericRepository<TEntity> where TEntity : class
     {
-        IEnumerable<T> GetAll();
-        IQueryable<T> Query(Expression<Func<T, bool>> predicate);
+        IEnumerable<TEntity> GetAll();
+        IQueryable<TEntity> Query(Expression<Func<TEntity, bool>> predicate);
 
-        T GetById(object id);
-        void Insert(T obj);
-        void Update(T obj);
+        TEntity GetById(object id);
+        void Insert(TEntity obj);
+        void Update(TEntity obj);
         void Delete(object id);
         void Save();
     }
