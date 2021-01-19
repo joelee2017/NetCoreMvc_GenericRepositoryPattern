@@ -7,6 +7,7 @@ using Microsoft.Extensions.Hosting;
 using Model.Data;
 using Model.Models;
 using Model.Repository;
+using MvcMovie.Helper;
 using Service.Service;
 
 namespace MvcMovie
@@ -24,15 +25,15 @@ namespace MvcMovie
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            // 加入 AutoMapper
-   
 
-            services.AddDbContext<MvcMovieContext>(options 
-                => options.UseSqlServer(Configuration.GetConnectionString("MvcMovieContext")));
+            // 注入 DB
+            services.InJectionByDbContext(Configuration.GetConnectionString("MvcMovieContext"));
 
-            services.AddScoped<IGenericRepository<Movie>, GenericRepository<Movie>>();
-            services.AddScoped<IMoviesService, MoviesService>();
+            // 注入 Repository
+            services.InJectionByRepository();
 
+            // 注入 Service
+            services.InJectionByService();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
